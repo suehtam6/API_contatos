@@ -4,12 +4,12 @@ const URL = 'https://bakcend-fecaf-render.onrender.com/contatos'
 
 ////Criando e exportando a função de getContato para mostrar todos os contatos
 export async function getContatos() {
-    
+
     const response = await fetch(URL)
 
-    if(response.ok){
+    if (response.ok) {
         return response.json()
-    }else{
+    } else {
         //throw -> Pode ser utilizado para enviar uma mensagem para o Desenvolvedor que for consumir a minha API.
         throw new Error('Erro ao listar os contatos!!')
     }
@@ -18,13 +18,13 @@ export async function getContatos() {
 
 //Criando e exportando a função de getContato para mostrar somente um único contato
 export async function getContato(id) {
-    
+
     const response = await fetch(`${URL}/${id}`)
 
     //A API do professor retorna um ok se estiver tudo certo
-    if(response.ok){
+    if (response.ok) {
         return response.json()
-    }else{
+    } else {
         //throw -> Pode ser utilizado para enviar uma mensagem para o Desenvolvedor que for consumir a minha API.
         throw new Error(`Erro ao listar o contato ${id}`)
     }
@@ -34,21 +34,21 @@ export async function getContato(id) {
 
 //Criando e exportando a função para criar novos contatos
 export async function postContatos(contato) {
-    
+
     //Configurações para utilizar no fetch junto com a URL
     let options = {
-        method:     'POST',
+        method: 'POST',
         headers: {
-            'Content-Type' : 'application/json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(contato)
     }
 
     const response = await fetch(URL, options)
 
-    if(response.ok){
+    if (response.ok) {
         return response.json()
-    }else{
+    } else {
         throw new Error('Erro ao criar um novo contato!!')
     }
 
@@ -57,12 +57,12 @@ export async function postContatos(contato) {
 
 //Criando e exportando a função para atualizar um contato ja existente
 export async function putContato(id, contato) {
-    
+
     //Configurações para utilizar o PUT
     const options = {
         method: 'PUT',
         headers: {
-            'Content-Type' : 'application/json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(contato)
 
@@ -70,9 +70,9 @@ export async function putContato(id, contato) {
 
     const response = await fetch(`${URL}/${id}`, options)
 
-    if(response.ok){
+    if (response.ok) {
         return response.json()
-    }else{
+    } else {
         throw new Error('Erro ao atualizar contato!!')
     }
 
@@ -80,17 +80,82 @@ export async function putContato(id, contato) {
 
 //Criando e exportando a função para deletar um contato ja existente
 export async function deleteContato(id) {
-    
+
     const options = {
         method: "DELETE"
     }
 
-    const response = await fetch(`${URL}/${id}`)
+    const response = await fetch(`${URL}/${id}`, options)
 
-    if(response.ok){
+    if (response.ok) {
         return true
-    }else{
+    } else {
         throw new Error('Erro ao deletar um contato!!')
     }
 
 }
+
+
+
+const criarCardContato = async function(contato) {
+    let result = document.getElementById('result')
+
+    let card = document.createElement('div')
+    card.className = 'card'
+
+    let nome = document.createElement('h3')
+    nome.textContent = contato.nomeContato
+    
+    let id = document.createElement('span')
+    id.textContent = contato.idContato
+
+    let foto = document.createElement('img')
+    foto.src = contato.fotoContato
+
+    let botaoPUT = document.createElement('button')
+    botaoPUT.textContent = 'UPDATE'
+    botaoPUT.id = 'botaoPUT'
+
+    let botaoDELETE = document.createElement('button')
+    botaoDELETE.textContent = 'DELETE'
+    botaoDELETE.id = 'botaoDELETE'
+
+    card.append(nome, foto, id, botaoPUT, botaoDELETE)
+
+    result.replaceChildren(card)
+
+}
+
+
+const criarContato = async function (idContato) {
+    let nomeContato     = document.getElementById('nome').value
+    let numeroContato   = document.getElementById('numero').value
+    let fotoContato     = document.getElementById('foto').value
+    let emailContato    = document.getElementById('email').value
+    let enderecoContato = document.getElementById('endereco').value
+    let cidadeContato   = document.getElementById('cidade').value
+
+    let contato = {
+        nome : nomeContato,
+        numero : numeroContato,
+        foto : fotoContato,
+        email : emailContato,
+        endereco : enderecoContato,
+        cidade : cidadeContato,
+        id : idContato
+    }
+
+    if(contato){
+        return criarCardContato(contato)
+    }else{
+        return false
+    }
+
+
+}
+
+criarContato()
+
+
+
+document.getElementById('salvar').addEventListener('click', function () { criarContato(idContato) })
