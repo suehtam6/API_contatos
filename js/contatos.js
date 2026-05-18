@@ -54,3 +54,43 @@ export async function postContatos(contato) {
 
 
 }
+
+//Criando e exportando a função para atualizar um contato ja existente
+export async function putContato(id, contato) {
+    
+    //Configurações para utilizar o PUT
+    const options = {
+        method: 'PUT',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(contato)
+
+    }
+
+    const response = await fetch(`${URL}/${id}`, options)
+
+    if(response.ok){
+        return response.json()
+    }else{
+        throw new Error('Erro ao atualizar contato!!')
+    }
+
+}
+
+//Criando e exportando a função para deletar um contato ja existente
+export async function deleteContato(id) {
+    
+    const options = {
+        method: "DELETE"
+    }
+
+    const response = await fetch(`${URL}/${id}`)
+
+    if(response.ok){
+        return true
+    }else{
+        throw new Error('Erro ao deletar um contato!!')
+    }
+
+}

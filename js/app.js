@@ -1,6 +1,6 @@
 'use strict'
 
-import { getContatos, getContato, postContatos} from "./contatos.js"
+import { getContatos, getContato, postContatos, putContato, deleteContatos} from "./contatos.js"
 
 
 //Criando um novo contato
@@ -14,3 +14,7 @@ const novoContato = {
     "cidade": "Barueri"
     
 }
+
+
+console.table(await deleteContatos(71))
+
