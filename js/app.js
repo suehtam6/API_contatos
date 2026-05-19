@@ -16,5 +16,5 @@ const novoContato = {
 }
 
 
-console.table(await deleteContato(102))
+
 

@@ -66,14 +66,20 @@ input{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: black;
+    background-color: rgb(179, 177, 177);
+    border: solid 2px black;
     width: 20dvh;
-    height: 20dvh;
+    height: 25dvh;
     gap: 5px;
 }
 
 .card img{
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     border-radius: 100%;
+}
+
+.caixaBTN{
+    display: flex;
+    gap: 5px;
 }

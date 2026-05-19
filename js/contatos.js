@@ -96,38 +96,43 @@ export async function deleteContato(id) {
 }
 
 
-
 const criarCardContato = async function(contato) {
-    let result = document.getElementById('result')
+        let result = document.getElementById('result')
 
-    let card = document.createElement('div')
-    card.className = 'card'
-
-    let nome = document.createElement('h3')
-    nome.textContent = contato.nomeContato
+        let caixaBTN = document.createElement('div')
+        caixaBTN.className = 'caixaBTN'
     
-    let id = document.createElement('span')
-    id.textContent = contato.idContato
+        let card = document.createElement('div')
+        card.className = 'card'
+    
+        let nome = document.createElement('h3')
+       
+        nome.textContent = contato.nome 
+        
+        let id = document.createElement('span')
+        id.textContent = `ID: ${contato.id}`
+    
+        let foto = document.createElement('img')
+        foto.src = contato.foto
+    
+        let botaoPUT = document.createElement('button')
+        botaoPUT.textContent = 'UPD'
+        botaoPUT.id = 'botaoPUT'
+    
+        let botaoDELETE = document.createElement('button')
+        botaoDELETE.textContent = 'DLT'
+        botaoDELETE.id = 'botaoDELETE'
 
-    let foto = document.createElement('img')
-    foto.src = contato.fotoContato
-
-    let botaoPUT = document.createElement('button')
-    botaoPUT.textContent = 'UPDATE'
-    botaoPUT.id = 'botaoPUT'
-
-    let botaoDELETE = document.createElement('button')
-    botaoDELETE.textContent = 'DELETE'
-    botaoDELETE.id = 'botaoDELETE'
-
-    card.append(nome, foto, id, botaoPUT, botaoDELETE)
-
-    result.replaceChildren(card)
-
+        caixaBTN.append(botaoPUT, botaoDELETE)
+    
+        card.append(nome, foto, id, caixaBTN)
+    
+        result.replaceChildren(card)
 }
 
 
-const criarContato = async function (idContato) {
+const salvarNovoContato = async function () {
+
     let nomeContato     = document.getElementById('nome').value
     let numeroContato   = document.getElementById('numero').value
     let fotoContato     = document.getElementById('foto').value
@@ -135,27 +140,30 @@ const criarContato = async function (idContato) {
     let enderecoContato = document.getElementById('endereco').value
     let cidadeContato   = document.getElementById('cidade').value
 
-    let contato = {
-        nome : nomeContato,
-        numero : numeroContato,
-        foto : fotoContato,
-        email : emailContato,
-        endereco : enderecoContato,
-        cidade : cidadeContato,
-        id : idContato
+    let novoContato = {
+        nome: nomeContato,
+        numero: numeroContato,
+        foto: fotoContato,
+        email: emailContato,
+        endereco: enderecoContato,
+        cidade: cidadeContato
     }
 
-    if(contato){
-        return criarCardContato(contato)
-    }else{
-        return false
+    try {
+       
+        const contatoCriado = await postContatos(novoContato)
+        
+        criarCardContato(contatoCriado)
+
+        alert('Contato salvo com sucesso!')
+
+    } catch (erro) {
+        console.error(erro)
+        alert('Não foi possível salvar o contato.')
     }
-
-
 }
 
-criarContato()
+criarCardContato()
 
 
-
-document.getElementById('salvar').addEventListener('click', function () { criarContato(idContato) })
+document.getElementById('salvar').addEventListener('click', salvarNovoContato)
