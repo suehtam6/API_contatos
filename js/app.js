@@ -146,10 +146,7 @@ const criarCardContato = function (contato) {
 
     botaoPUT.append(btn_put)
 
-
     let botaoDELETE = document.createElement('button')
-
-    //Perguntando se a pessoa realmente quer deletar o contato, para evitar erros
     botaoDELETE.onclick = async () => {
         if(confirm("Tem certeza que deseja deletar este contato?")) {
             await deleteContato(contato.id)
@@ -157,9 +154,12 @@ const criarCardContato = function (contato) {
             carregarContatos()
         }
     }
-    
-    botaoDELETE.textContent = 'DLT'
+    let btn_delete = document.createElement('img')
+    btn_delete.src = '../img/lixeira.png'
+    btn_delete.alt = 'Deletar contato'
+    botaoDELETE.append(btn_delete)
 
+    
     caixaBTN.append(botaoPUT, botaoDELETE)
     card.append(nome, foto, id, caixaBTN)
 

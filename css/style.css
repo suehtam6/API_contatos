@@ -115,7 +115,16 @@ input{
     height: 30px;
 }
 
-.caixaBTN{
-    display: flex;
-    gap: 16px;
+
+.caixaBTN button {
+    background: transparent; 
+    border: none;            
+    cursor: pointer;         
+    padding: 5px;
+}
+
+.caixaBTN button img {
+    width: 30px;             
+    height: 30px;
+    object-fit: contain;
 }
