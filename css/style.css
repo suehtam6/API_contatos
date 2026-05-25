@@ -38,6 +38,12 @@ header{
 .salvar{
     width: 100px;
     height: 50px;
+    background-color: rgb(77, 228, 77);
+}
+
+.salvar:hover{
+    transition:0.5s;
+    background-color: green;
 }
 
 input{
@@ -49,16 +55,40 @@ input{
 }
 
 #result{
-    margin-top: 20px;
-    width: 100dvh;
+    margin-top: 40px;
+    width: 150dvh;
     height: 60dvh;
-    background-color:aqua;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    
+}
+
+.padronizarContato{
+    width: 150dvh;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.botoes-editar{
+    display: flex;
+    gap:15px;
+}
+
+.botoes-editar button{
+    gap: 20px;
+    width: 250px;
+    height: 60px;
+    
 }
 
 .linha{
-    width: 100dvh;
-    margin-top: 5px;
-    height: 1px;
+    margin-top: 20px;
+    width: 150dvh;
+    height: 2px;
     background-color: black;
 }
 
@@ -66,20 +96,26 @@ input{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgb(179, 177, 177);
+    justify-content: center;
     border: solid 2px black;
     width: 20dvh;
     height: 25dvh;
-    gap: 5px;
+    gap: 10px;
 }
 
 .card img{
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
     border-radius: 100%;
+    border: solid 2px black;
+}
+
+.card button{
+    width: 50px;
+    height: 30px;
 }
 
 .caixaBTN{
     display: flex;
-    gap: 5px;
+    gap: 16px;
 }

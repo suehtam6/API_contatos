@@ -5,7 +5,8 @@ const URL = 'https://bakcend-fecaf-render.onrender.com/contatos'
 ////Criando e exportando a função de getContato para mostrar todos os contatos
 export async function getContatos() {
 
-    const response = await fetch(URL)
+    //Para fazer as paginas deve se utilizar (_page=(número) ) e para limitar a quantidade de conteúdos que irá aparecer na tela deve-se utilizar (_limit=(número) )
+    const response = await fetch(`${URL}?_page=1&_limit=12`)
 
     if (response.ok) {
         return response.json()
@@ -95,75 +96,3 @@ export async function deleteContato(id) {
 
 }
 
-
-const criarCardContato = async function(contato) {
-        let result = document.getElementById('result')
-
-        let caixaBTN = document.createElement('div')
-        caixaBTN.className = 'caixaBTN'
-    
-        let card = document.createElement('div')
-        card.className = 'card'
-    
-        let nome = document.createElement('h3')
-       
-        nome.textContent = contato.nome 
-        
-        let id = document.createElement('span')
-        id.textContent = `ID: ${contato.id}`
-    
-        let foto = document.createElement('img')
-        foto.src = contato.foto
-    
-        let botaoPUT = document.createElement('button')
-        botaoPUT.textContent = 'UPD'
-        botaoPUT.id = 'botaoPUT'
-    
-        let botaoDELETE = document.createElement('button')
-        botaoDELETE.textContent = 'DLT'
-        botaoDELETE.id = 'botaoDELETE'
-
-        caixaBTN.append(botaoPUT, botaoDELETE)
-    
-        card.append(nome, foto, id, caixaBTN)
-    
-        result.replaceChildren(card)
-}
-
-
-const salvarNovoContato = async function () {
-
-    let nomeContato     = document.getElementById('nome').value
-    let numeroContato   = document.getElementById('numero').value
-    let fotoContato     = document.getElementById('foto').value
-    let emailContato    = document.getElementById('email').value
-    let enderecoContato = document.getElementById('endereco').value
-    let cidadeContato   = document.getElementById('cidade').value
-
-    let novoContato = {
-        nome: nomeContato,
-        numero: numeroContato,
-        foto: fotoContato,
-        email: emailContato,
-        endereco: enderecoContato,
-        cidade: cidadeContato
-    }
-
-    try {
-       
-        const contatoCriado = await postContatos(novoContato)
-        
-        criarCardContato(contatoCriado)
-
-        alert('Contato salvo com sucesso!')
-
-    } catch (erro) {
-        console.error(erro)
-        alert('Não foi possível salvar o contato.')
-    }
-}
-
-criarCardContato()
-
-
-document.getElementById('salvar').addEventListener('click', salvarNovoContato)
